@@ -9,7 +9,7 @@
     body {
         font-family: Arial, sans-serif;
         margin: 0;
-        background: #f9fafb;
+        background: #ffffff;
         color: #0f2a43;
         display: flex;
         justify-content: center;
@@ -19,35 +19,39 @@
     }
 
     .container {
-        max-width: 450px;
-        padding: 30px;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        width: 700px; /* ← much wider, desktop friendly */
+        padding: 40px 20px;
     }
 
     .logo {
-        max-width: 260px;       /* Increased from 200px → bigger logo */
-        margin-bottom: 25px;
+        max-width: 340px; /* ← bigger logo */
+        margin-bottom: 30px;
     }
 
     h1 {
-        font-size: 26px;
-        margin-bottom: 20px;
+        font-size: 32px;
+        margin-bottom: 30px;
         font-weight: 600;
     }
 
-    button {
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
         width: 100%;
-        padding: 16px;
-        margin: 10px 0;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
+    button {
+        padding: 18px;
+        font-size: 20px;
+        border-radius: 12px;
         border: none;
-        border-radius: 10px;
-        font-size: 18px;
         cursor: pointer;
-        transition: 0.2s ease;
         background-color: #0f4c81;
         color: white;
+        transition: 0.2s ease;
     }
 
     button:hover {
@@ -55,9 +59,9 @@
     }
 
     footer {
-        margin-top: 20px;
-        font-size: 12px;
-        color: #777;
+        margin-top: 40px;
+        font-size: 13px;
+        color: #666;
     }
 </style>
 
@@ -73,17 +77,11 @@ function goToGroup(group) {
 
 <body>
 <div class="container">
+
     <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo">
 
     <h1>Select Your Age Group</h1>
 
-    <button onclick="goToGroup(1)">Under 21 years old</button>
-    <button onclick="goToGroup(2)">22–63 years old</button>
-    <button onclick="goToGroup(3)">64+ years old</button>
-
-    <footer>
-        © <script>document.write(new Date().getFullYear());</script> SaverPath
-    </footer>
-</div>
-</body>
-</html>
+    <div class="button-group">
+        <button onclick="goToGroup(1)">Under 21 years old</button>
+        <button onclick="g
