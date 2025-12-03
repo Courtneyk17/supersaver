@@ -76,11 +76,19 @@
 </style>
 
 <script>
-function goToGroup(group) {
-    if (group === 1) window.location.href = "under21.html";
-    if (group === 2) window.location.href = "22-63.html";
-    if (group === 3) window.location.href = "64plus.html";
-}
+  // Routing logic using OTTO / EQ labels
+  function goToGroup(group) {
+
+    const links = {
+        under21: "https://PLACEHOLDER-OTTO-LINK.com",  // OTTO
+        adult:    "https://PLACEHOLDER-EQ-LINK.com",    // EQ
+        senior:   "https://PLACEHOLDER-OTTO-LINK.com"   // OTTO
+    };
+
+    if (group === 1) window.location.href = links.under21;
+    if (group === 2) window.location.href = links.adult;
+    if (group === 3) window.location.href = links.senior;
+  }
 </script>
 
 </head>
@@ -93,9 +101,9 @@ function goToGroup(group) {
     <h1>Select Your Age Group</h1>
 
     <div class="button-group">
-        <button onclick="goToGroup(1)">Under 21 years old</button>
-        <button onclick="goToGroup(2)">22–63 years old</button>
-        <button onclick="goToGroup(3)">64+ years old</button>
+        <button onclick="goToGroup(1)">Under 21 years old (OTTO)</button>
+        <button onclick="goToGroup(2)">22–63 years old (EQ)</button>
+        <button onclick="goToGroup(3)">64+ years old (OTTO)</button>
     </div>
 
     <footer>
