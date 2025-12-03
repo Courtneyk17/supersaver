@@ -19,12 +19,12 @@
     }
 
     .container {
-        width: 700px; /* ← much wider, desktop friendly */
+        width: 700px;
         padding: 40px 20px;
     }
 
     .logo {
-        max-width: 340px; /* ← bigger logo */
+        max-width: 340px;
         margin-bottom: 30px;
     }
 
@@ -60,8 +60,18 @@
 
     footer {
         margin-top: 40px;
-        font-size: 13px;
+        font-size: 14px;
         color: #666;
+    }
+
+    footer a {
+        color: #0f4c81;
+        text-decoration: none;
+        margin: 0 8px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
     }
 </style>
 
@@ -89,8 +99,13 @@ function goToGroup(group) {
     </div>
 
     <footer>
-        © <script>document.write(new Date().getFullYear());</script> SaverPath
+        © <script>document.write(new Date().getFullYear());</script> SaverPath  
+        •  
+        <a href="contact.html">Contact</a>  
+        •  
+        <a href="terms.html">Terms & Conditions</a>
     </footer>
+
 </div>
 </body>
 </html>
