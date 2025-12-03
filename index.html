@@ -19,7 +19,7 @@
     }
 
     .container {
-        max-width: 420px;
+        max-width: 450px;
         padding: 30px;
         background: white;
         border-radius: 16px;
@@ -27,13 +27,13 @@
     }
 
     .logo {
-        max-width: 200px;
-        margin-bottom: 20px;
+        max-width: 260px;       /* Increased from 200px → bigger logo */
+        margin-bottom: 25px;
     }
 
     h1 {
-        font-size: 24px;
-        margin-bottom: 18px;
+        font-size: 26px;
+        margin-bottom: 20px;
         font-weight: 600;
     }
 
@@ -63,7 +63,6 @@
 
 <script>
 function goToGroup(group) {
-    // Redirect paths — change later when you build the actual pages
     if (group === 1) window.location.href = "under21.html";
     if (group === 2) window.location.href = "22-63.html";
     if (group === 3) window.location.href = "64plus.html";
@@ -75,11 +74,12 @@ function goToGroup(group) {
 <body>
 <div class="container">
     <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo">
+
     <h1>Select Your Age Group</h1>
 
-    <button onclick="goToGroup(1)">Under 21</button>
-    <button onclick="goToGroup(2)">22 – 63</button>
-    <button onclick="goToGroup(3)">64+</button>
+    <button onclick="goToGroup(1)">Under 21 years old</button>
+    <button onclick="goToGroup(2)">22–63 years old</button>
+    <button onclick="goToGroup(3)">64+ years old</button>
 
     <footer>
         © <script>document.write(new Date().getFullYear());</script> SaverPath
