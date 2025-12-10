@@ -1,116 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SaverPath</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaverPath</title>
 
-<style>
+  <!-- =========================
+       RedTrack Landing Page Script
+       MUST paste the script from RedTrack:
+       Tools → Scripts → Landing Page Script
+       DO NOT CHANGE ANYTHING inside the snippet.
+  ========================== -->
+  <!-- PASTE YOUR REDTRACK LANDER SCRIPT HERE -->
+
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #f2f2f2;
-        color: #0f2a43;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+      color: #0f2a43;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
     }
 
     .container {
-        width: 700px;
-        padding: 40px 20px;
+      width: 700px;
+      padding: 40px 20px;
     }
 
-   .logo {
-    width: 100%;
-    max-width: 600px;     /* makes it long/wide on desktop */
-    height: auto;         /* keeps proportions clean */
-    margin: 0 auto 30px;  /* centers it and adds spacing */
-    display: block;
-}
+    .logo {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin: 0 auto 30px;
+      display: block;
+    }
 
     .button-group {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-        max-width: 450px;
-        margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto;
     }
 
     button {
-        padding: 18px;
-        font-size: 20px;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        background-color: #0f4c81;
-        color: white;
-        transition: 0.2s ease;
+      padding: 18px;
+      font-size: 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background-color: #0f4c81;
+      color: white;
+      transition: 0.2s ease;
     }
 
     button:hover {
-        background-color: #09375c;
+      background-color: #09375c;
     }
 
     footer {
-        margin-top: 40px;
-        font-size: 14px;
-        color: #666;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
     }
 
     footer a {
-        color: #0f4c81;
-        text-decoration: none;
-        margin: 0 8px;
+      color: #0f4c81;
+      text-decoration: none;
+      margin: 0 8px;
     }
 
     footer a:hover {
-        text-decoration: underline;
+      text-decoration: underline;
     }
-</style>
+  </style>
 
-<script>
-  // Routing logic using OTTO / EQ labels
-  function goToGroup(group) {
+  <script>
+    // RedTrack Click URL for your LP → Offer routing
+    const BASE_CLICK_URL = "https://track.saverpath.org/click";
 
+    // Optional tagging for better reporting
     const links = {
-        under21: "https://PLACEHOLDER-OTTO-LINK.com",  // OTTO
-        adult:    "https://PLACEHOLDER-EQ-LINK.com",    // EQ
-        senior:   "https://PLACEHOLDER-OTTO-LINK.com"   // OTTO
+      under21: BASE_CLICK_URL + "?age_group=under21",
+      adult:   BASE_CLICK_URL + "?age_group=22_63",
+      senior:  BASE_CLICK_URL + "?age_group=64_plus"
     };
 
-    if (group === 1) window.location.href = links.under21;
-    if (group === 2) window.location.href = links.adult;
-    if (group === 3) window.location.href = links.senior;
-  }
-</script>
-
+    function goToGroup(group) {
+      if (group === 1) window.location.href = links.under21;
+      if (group === 2) window.location.href = links.adult;
+      if (group === 3) window.location.href = links.senior;
+    }
+  </script>
 </head>
 
 <body>
-<div class="container">
-
+  <div class="container">
     <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo">
 
     <h1>Select Your Age Group</h1>
 
     <div class="button-group">
-        <button onclick="goToGroup(1)">Under 21 years old </button>
-        <button onclick="goToGroup(2)">22–63 years old </button>
-        <button onclick="goToGroup(3)">64+ years old </button>
+      <button onclick="goToGroup(1)">Under 21 years old</button>
+      <button onclick="goToGroup(2)">22–63 years old</button>
+      <button onclick="goToGroup(3)">64+ years old</button>
     </div>
 
     <footer>
-        © <script>document.write(new Date().getFullYear());</script> SaverPath  
-        •  
-        <a href="contact.html">Contact</a>  
-        •  
-        <a href="terms.html">Terms & Conditions</a>
+      © <script>document.write(new Date().getFullYear());</script> SaverPath
+      •
+      <a href="contact.html">Contact</a>
+      •
+      <a href="terms.html">Terms &amp; Conditions</a>
     </footer>
-
-</div>
+  </div>
 </body>
 </html>
