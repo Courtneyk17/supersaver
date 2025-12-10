@@ -76,23 +76,21 @@
   </style>
 
   <script>
-    // All age groups go through RedTrack click endpoint so clickID + age_group are tracked.
-    // RedTrack campaign/funnel then routes to the correct offer.
-    const BASE_CLICK = "https://track.saverpath.org/click";
-
-    const links = {
-      under21: BASE_CLICK + "?age_group=under21",
-      adult:   BASE_CLICK + "?age_group=22_63",
-      senior:  BASE_CLICK + "?age_group=64_plus"
-    };
-
+    // Age-routing logic: send different age groups directly to the correct offers.
+    // RedTrack still tracks the original click via the campaign tracking URL.
     function goToGroup(group) {
+      const links = {
+        under21: "https://l.auto-savings.com/auto?affid=13146",
+        adult:   "https://usaauto-insurance.com/quote/?_ef_transaction_id=&oid=17&affid=58&sub_id=791&source_id=meta",
+        senior:  "https://l.auto-savings.com/auto?affid=13146"
+      };
+
       if (group === 1) {
-        window.location.href = links.under21;
+        window.location.href = links.under21; // Under 21 → Otto
       } else if (group === 2) {
-        window.location.href = links.adult;
+        window.location.href = links.adult;   // 22–63 → HyIntent
       } else if (group === 3) {
-        window.location.href = links.senior;
+        window.location.href = links.senior;  // 64+ → Otto
       }
     }
   </script>
