@@ -7,9 +7,10 @@
 
   <!-- =========================
        RedTrack Landing Page Script
-       MUST paste the script from RedTrack:
-       Tools → Scripts → Landing Page Script
-       DO NOT CHANGE ANYTHING inside the snippet.
+       When you get the snippet from:
+       Tools → Scripts → Landing Page Script,
+       paste it right below this comment.
+       Do NOT edit the snippet itself.
   ========================== -->
   <!-- PASTE YOUR REDTRACK LANDER SCRIPT HERE -->
 
@@ -81,20 +82,21 @@
   </style>
 
   <script>
-    // RedTrack Click URL for your LP → Offer routing
-    const BASE_CLICK_URL = "https://track.saverpath.org/click";
-
-    // Optional tagging for better reporting
-    const links = {
-      under21: BASE_CLICK_URL + "?age_group=under21",
-      adult:   BASE_CLICK_URL + "?age_group=22_63",
-      senior:  BASE_CLICK_URL + "?age_group=64_plus"
-    };
-
+    // Age-routing logic: send different age groups to different offers
     function goToGroup(group) {
-      if (group === 1) window.location.href = links.under21;
-      if (group === 2) window.location.href = links.adult;
-      if (group === 3) window.location.href = links.senior;
+      const links = {
+        under21: "https://l.auto-savings.com/auto?affid=13146",
+        adult:   "https://usaauto-insurance.com/quote/?_ef_transaction_id=&oid=17&affid=58&sub_id=791&source_id=meta",
+        senior:  "https://l.auto-savings.com/auto?affid=13146"
+      };
+
+      if (group === 1) {
+        window.location.href = links.under21;
+      } else if (group === 2) {
+        window.location.href = links.adult;
+      } else if (group === 3) {
+        window.location.href = links.senior;
+      }
     }
   </script>
 </head>
