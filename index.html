@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SaverPath</title>
 
-  <!-- Optional: when you get your RedTrack landing script,
-       you can paste it here, under this comment. -->
+  <!-- ✅ RedTrack Universal Landing Page Tracking Script -->
+  <script src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org"></script>
 
   <style>
     body {
@@ -76,22 +76,25 @@
   </style>
 
   <script>
-    // Age-routing logic: send different age groups directly to the correct offers.
-    // RedTrack still tracks the original click via the campaign tracking URL.
+    /*
+      ✅ Age routing THROUGH RedTrack
+      RedTrack already knows which offer to send based on funnel logic.
+      We just add sub parameters for reporting clarity.
+    */
+
     function goToGroup(group) {
-      const links = {
-        under21: "https://l.auto-savings.com/auto?affid=13146",
-        adult:   "https://usaauto-insurance.com/quote/?_ef_transaction_id=&oid=17&affid=58&sub_id=791&source_id=meta",
-        senior:  "https://l.auto-savings.com/auto?affid=13146"
-      };
+      let sub15 = "";
 
       if (group === 1) {
-        window.location.href = links.under21; // Under 21 → Otto
+        sub15 = "under21";
       } else if (group === 2) {
-        window.location.href = links.adult;   // 22–63 → HyIntent
+        sub15 = "adult_22_63";
       } else if (group === 3) {
-        window.location.href = links.senior;  // 64+ → Otto
+        sub15 = "senior_64_plus";
       }
+
+      // ALWAYS send clicks to RedTrack
+      window.location.href = "https://track.saverpath.org/click?sub15=" + sub15;
     }
   </script>
 </head>
