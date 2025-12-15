@@ -78,23 +78,29 @@
   <script>
     /*
       ✅ Age routing THROUGH RedTrack
-      RedTrack already knows which offer to send based on funnel logic.
-      We just add sub parameters for reporting clarity.
+      Updated routing:
+        - Under 21  -> HyIntent EQ
+        - 22–63     -> HyIntent EQ
+        - 64+       -> Otto
+
+      We pass a single routing hint via sub15 for RedTrack rules.
     */
 
     function goToGroup(group) {
+      // sub15 becomes a simple routing hint
+      // eq = HyIntent EQ, otto = Otto
       let sub15 = "";
 
       if (group === 1) {
-        sub15 = "under21";
+        sub15 = "eq";            // Under 21 -> HyIntent EQ
       } else if (group === 2) {
-        sub15 = "adult_22_63";
+        sub15 = "eq";            // 22–63 -> HyIntent EQ
       } else if (group === 3) {
-        sub15 = "senior_64_plus";
+        sub15 = "otto";          // 64+ -> Otto
       }
 
       // ALWAYS send clicks to RedTrack
-      window.location.href = "https://track.saverpath.org/click?sub15=" + sub15;
+      window.location.href = "https://track.saverpath.org/click?sub15=" + encodeURIComponent(sub15);
     }
   </script>
 </head>
@@ -121,3 +127,4 @@
   </div>
 </body>
 </html>
+
