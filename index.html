@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaverPath</title>
 
   <!-- ✅ RedTrack Universal Landing Page Tracking Script -->
@@ -78,9 +78,35 @@
   <script>
     /*
       ✅ Age routing THROUGH RedTrack
-      RedTrack already knows which offer to send based on funnel logic.
-      We just add sub parameters for reporting clarity.
+      Updated routing you want:
+        - Under 21  -> HyIntent EQ
+        - 22–63     -> HyIntent EQ
+        - 64+       -> Otto
+
+      IMPORTANT:
+      Do NOT send users directly to https://track.saverpath.org/ (Forbidden).
+      Also do NOT hit /click unless a clickid exists.
+
+      Solution:
+      Send users to your RedTrack *campaign tracking URL* and pass sub15 on that URL.
+      RedTrack will create the clickid and then apply your funnel filters/sub rules.
     */
+
+    // ✅ Put your RedTrack campaign tracking URL here:
+    // This should be the redirect/campaign URL (the long one with sub1/sub2/etc).
+    const CAMPAIGN_URL =
+      "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3" +
+      "?sub1={{ad.id}}" +
+      "&sub2={{adset.id}}" +
+      "&sub3={{campaign.id}}" +
+      "&sub4={{ad.name}}" +
+      "&sub5={{adset.name}}" +
+      "&sub6={{campaign.name}}" +
+      "&sub7={{placement}}" +
+      "&sub8={{site_source_name}}" +
+      "&utm_source=facebook" +
+      "&utm_medium=paid" +
+      "&ref_id={{clickid}}";
 
     function goToGroup(group) {
       let sub15 = "";
@@ -93,15 +119,18 @@
         sub15 = "senior_64_plus";
       }
 
-      // ALWAYS send clicks to RedTrack
-      window.location.href = "https://track.saverpath.org/click?sub15=" + sub15;
+      // Append sub15 to campaign URL (works whether CAMPAIGN_URL already has ? or not)
+      const separator = CAMPAIGN_URL.includes("?") ? "&" : "?";
+      const redirectUrl = CAMPAIGN_URL + separator + "sub15=" + encodeURIComponent(sub15);
+
+      window.location.href = redirectUrl;
     }
   </script>
 </head>
 
 <body>
   <div class="container">
-    <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo">
+    <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo" />
 
     <h1>Select Your Age Group</h1>
 
@@ -121,5 +150,3 @@
   </div>
 </body>
 </html>
-
-
