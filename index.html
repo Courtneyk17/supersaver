@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SaverPath</title>
 
   <!-- ✅ RedTrack Universal Landing Page Tracking Script -->
@@ -78,30 +78,14 @@
   <script>
     /*
       ✅ Age routing THROUGH RedTrack
-
-      We pass the age group in sub15, and RedTrack rules/funnels decide the offer:
-        - under21        -> HyIntent EQ
-        - adult_22_63    -> HyIntent EQ
+      We pass sub15 so your RedTrack campaign funnel filters can route:
+        - under21        -> HI EQ
+        - adult_22_63    -> HI EQ
         - senior_64_plus -> Otto
-
-      IMPORTANT:
-      We send users to the RedTrack CAMPAIGN URL (not /click directly),
-      so RedTrack can generate a clickid and track properly.
     */
 
-    const CAMPAIGN_URL =
-      "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3" +
-      "?sub1={{ad.id}}" +
-      "&sub2={{adset.id}}" +
-      "&sub3={{campaign.id}}" +
-      "&sub4={{ad.name}}" +
-      "&sub5={{adset.name}}" +
-      "&sub6={{campaign.name}}" +
-      "&sub7={{placement}}" +
-      "&sub8={{site_source_name}}" +
-      "&utm_source=facebook" +
-      "&utm_medium=paid" +
-      "&ref_id={{clickid}}";
+    // ✅ Your RedTrack campaign tracking URL (entry point)
+    const REDTRACK_CAMPAIGN_URL = "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3";
 
     function goToGroup(group) {
       let sub15 = "";
@@ -114,16 +98,15 @@
         sub15 = "senior_64_plus";
       }
 
-      // Append sub15 to the campaign URL
-      const redirectUrl = CAMPAIGN_URL + "&sub15=" + encodeURIComponent(sub15);
-      window.location.href = redirectUrl;
+      // ✅ Send click into the CAMPAIGN URL with sub15 attached
+      window.location.href = REDTRACK_CAMPAIGN_URL + "?sub15=" + encodeURIComponent(sub15);
     }
   </script>
 </head>
 
 <body>
   <div class="container">
-    <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo" />
+    <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo">
 
     <h1>Select Your Age Group</h1>
 
