@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaverPath</title>
 
+  <!-- RedTrack Universal Script (NON-BLOCKING) -->
+  <script async src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org"></script>
+
   <style>
+    /* RESET */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -19,8 +27,12 @@
     }
 
     .container {
-      width: 700px;
+      width: 100%;
+      max-width: 700px;
       padding: 40px 20px;
+      position: relative;
+      z-index: 9999; /* CRITICAL */
+      pointer-events: auto;
     }
 
     .logo {
@@ -29,6 +41,14 @@
       height: auto;
       margin: 0 auto 30px;
       display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 2;
     }
 
     .button-group {
@@ -39,23 +59,24 @@
       max-width: 450px;
       margin: 0 auto;
       position: relative;
-      z-index: 10;
+      z-index: 9999; /* CRITICAL */
+      pointer-events: auto;
     }
 
-    /* Button-as-link styling */
+    /* BUTTON LINKS */
     .btn {
       display: block;
       padding: 18px;
       font-size: 20px;
       border-radius: 12px;
-      border: none;
-      cursor: pointer;
       background-color: #0f4c81;
-      color: white;
-      transition: 0.2s ease;
+      color: #ffffff;
       text-decoration: none;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      position: relative;
+      z-index: 9999;
+      pointer-events: auto;
     }
 
     .btn:hover {
@@ -66,6 +87,8 @@
       margin-top: 40px;
       font-size: 14px;
       color: #666;
+      position: relative;
+      z-index: 2;
     }
 
     footer a {
@@ -83,13 +106,25 @@
 <body>
   <div class="container">
     <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo" />
+
     <h1>Select Your Age Group</h1>
 
-    <!-- HARD LINK ROUTING (works even if JS is blocked) -->
+    <!-- HARD LINKS (NO JS REQUIRED) -->
     <div class="button-group">
-      <a class="btn" href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=under21">Under 21 years old</a>
-      <a class="btn" href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=adult_21_63">21–63 years old</a>
-      <a class="btn" href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=senior_64_plus">64+ years old</a>
+      <a class="btn"
+         href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=under21">
+        Under 21 years old
+      </a>
+
+      <a class="btn"
+         href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=adult_21_63">
+        21–63 years old
+      </a>
+
+      <a class="btn"
+         href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=senior_64_plus">
+        64+ years old
+      </a>
     </div>
 
     <footer>
@@ -98,42 +133,5 @@
       <a href="terms.html">Terms &amp; Conditions</a>
     </footer>
   </div>
-
-  <!-- OPTIONAL: Preserve incoming query params (fbclid/utm/rtkcid/etc.) if JS runs.
-       If JS is blocked, links still work (just without pass-through). -->
-  <script>
-    (function () {
-      try {
-        const incoming = new URLSearchParams(window.location.search);
-        if (!incoming || [...incoming.keys()].length === 0) return;
-
-        document.querySelectorAll('a.btn[href*="track.saverpath.org/6939c5f0b0e10db0791cdcf3"]').forEach(a => {
-          const url = new URL(a.href);
-          // Merge incoming params WITHOUT overwriting sub15
-          incoming.forEach((v, k) => {
-            if (k.toLowerCase() === "sub15") return;
-            if (!url.searchParams.has(k)) url.searchParams.set(k, v);
-          });
-          a.href = url.toString();
-        });
-      } catch (e) {
-        // no-op: links still work
-      }
-    })();
-  </script>
-
-  <!-- RedTrack universal script (delayed to avoid breaking click behavior) -->
-  <script>
-    (function () {
-      const s = document.createElement("script");
-      s.src = "https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org";
-      s.async = true;
-      s.defer = true;
-      // Load after page is interactive
-      window.addEventListener("load", function () {
-        document.head.appendChild(s);
-      });
-    })();
-  </script>
 </body>
 </html>
