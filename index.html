@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaverPath</title>
 
-  <!-- RedTrack Universal Landing Page Tracking Script -->
-  <script src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org"></script>
+  <!-- Routing FIRST (so buttons work even if external scripts are slow/blocked) -->
+  <script>
+    const REDTRACK_CAMPAIGN_URL = "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3";
+
+    function goToGroup(group) {
+      let sub15 = "";
+      if (group === 1) sub15 = "under21";
+      if (group === 2) sub15 = "adult_21_63";
+      if (group === 3) sub15 = "senior_64_plus";
+
+      // Preserve all incoming query params (fbclid, utm, rtkcid, etc.)
+      const params = new URLSearchParams(window.location.search);
+      params.set("sub15", sub15);
+
+      // Use replace to avoid back-button redirect loops
+      window.location.replace(`${REDTRACK_CAMPAIGN_URL}?${params.toString()}`);
+    }
+  </script>
+
+  <!-- RedTrack Universal Landing Page Tracking Script (non-blocking) -->
+  <script
+    src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org"
+    defer
+  ></script>
 
   <style>
     body {
@@ -74,37 +96,17 @@
       text-decoration: underline;
     }
   </style>
-
-  <script>
-    const REDTRACK_CAMPAIGN_URL = "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3";
-
-    function goToGroup(group) {
-      let sub15 = "";
-
-      if (group === 1) sub15 = "under21";
-      if (group === 2) sub15 = "adult_21_63";
-      if (group === 3) sub15 = "senior_64_plus";
-
-      // Preserve all incoming query params (fbclid, utm, etc.)
-      const params = new URLSearchParams(window.location.search);
-      params.set("sub15", sub15);
-
-      // Use replace to avoid back-button redirect loops
-      window.location.replace(`${REDTRACK_CAMPAIGN_URL}?${params.toString()}`);
-    }
-  </script>
 </head>
 
 <body>
   <div class="container">
-    <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo">
-
+    <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo" />
     <h1>Select Your Age Group</h1>
 
     <div class="button-group">
-      <button onclick="goToGroup(1)">Under 21 years old</button>
-      <button onclick="goToGroup(2)">21–63 years old</button>
-      <button onclick="goToGroup(3)">64+ years old</button>
+      <button type="button" onclick="goToGroup(1)">Under 21 years old</button>
+      <button type="button" onclick="goToGroup(2)">21–63 years old</button>
+      <button type="button" onclick="goToGroup(3)">64+ years old</button>
     </div>
 
     <footer>
