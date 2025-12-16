@@ -5,30 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaverPath</title>
 
-  <!-- Routing FIRST (so buttons work even if external scripts are slow/blocked) -->
-  <script>
-    const REDTRACK_CAMPAIGN_URL = "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3";
-
-    function goToGroup(group) {
-      let sub15 = "";
-      if (group === 1) sub15 = "under21";
-      if (group === 2) sub15 = "adult_21_63";
-      if (group === 3) sub15 = "senior_64_plus";
-
-      // Preserve all incoming query params (fbclid, utm, rtkcid, etc.)
-      const params = new URLSearchParams(window.location.search);
-      params.set("sub15", sub15);
-
-      // Use replace to avoid back-button redirect loops
-      window.location.replace(`${REDTRACK_CAMPAIGN_URL}?${params.toString()}`);
-    }
-  </script>
-
-  <!-- RedTrack Universal Landing Page Tracking Script (non-blocking) -->
-  <script
-    src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org"
-    defer
-  ></script>
+  <!-- RedTrack Universal Script -->
+  <script src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org" defer></script>
 
   <style>
     body {
@@ -42,29 +20,25 @@
       height: 100vh;
       text-align: center;
     }
-
     .container {
       width: 700px;
       padding: 40px 20px;
     }
-
     .logo {
       width: 100%;
       max-width: 600px;
-      height: auto;
       margin: 0 auto 30px;
       display: block;
     }
-
     .button-group {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      width: 100%;
       max-width: 450px;
       margin: 0 auto;
+      position: relative;
+      z-index: 10;
     }
-
     button {
       padding: 18px;
       font-size: 20px;
@@ -75,25 +49,18 @@
       color: white;
       transition: 0.2s ease;
     }
-
     button:hover {
       background-color: #09375c;
     }
-
     footer {
       margin-top: 40px;
       font-size: 14px;
       color: #666;
     }
-
     footer a {
       color: #0f4c81;
       text-decoration: none;
       margin: 0 8px;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
@@ -104,16 +71,29 @@
     <h1>Select Your Age Group</h1>
 
     <div class="button-group">
-      <button type="button" onclick="goToGroup(1)">Under 21 years old</button>
-      <button type="button" onclick="goToGroup(2)">21–63 years old</button>
-      <button type="button" onclick="goToGroup(3)">64+ years old</button>
+      <button data-age="under21">Under 21 years old</button>
+      <button data-age="adult_21_63">21–63 years old</button>
+      <button data-age="senior_64_plus">64+ years old</button>
     </div>
 
     <footer>
       © <script>document.write(new Date().getFullYear());</script> SaverPath •
       <a href="contact.html">Contact</a> •
-      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="terms.html">Terms & Conditions</a>
     </footer>
   </div>
+
+  <!-- ROUTING SCRIPT (BOTTOM — CRITICAL) -->
+  <script>
+    const REDTRACK_URL = "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3";
+
+    document.querySelectorAll("button[data-age]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const params = new URLSearchParams(window.location.search);
+        params.set("sub15", btn.dataset.age);
+        window.location.href = `${REDTRACK_URL}?${params.toString()}`;
+      });
+    });
+  </script>
 </body>
 </html>
