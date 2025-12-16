@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaverPath</title>
 
-  <!-- RedTrack Universal Script (non-blocking) -->
+  <!-- RedTrack Universal Script (safe + async) -->
   <script async src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org"></script>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       font-family: Arial, sans-serif;
@@ -28,12 +30,13 @@
       max-width: 700px;
       padding: 40px 20px;
       position: relative;
-      z-index: 9999;
+      z-index: 10;
     }
 
     .logo {
       width: 100%;
       max-width: 600px;
+      height: auto;
       margin: 0 auto 30px;
       display: block;
     }
@@ -46,6 +49,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      width: 100%;
       max-width: 450px;
       margin: 0 auto;
     }
@@ -77,14 +81,11 @@
       text-decoration: none;
       margin: 0 8px;
     }
-  </style>
 
-  <script>
-    function go(url) {
-      // Force breakout of Meta / iframe previews
-      window.top.location.href = url;
+    footer a:hover {
+      text-decoration: underline;
     }
-  </script>
+  </style>
 </head>
 
 <body>
@@ -93,25 +94,29 @@
 
     <h1>Select Your Age Group</h1>
 
+    <!-- HARD LINKS ONLY (NO JS) -->
     <div class="button-group">
-      <a class="btn"
-         href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=under21"
-         target="_top"
-         onclick="go(this.href); return false;">
+      <a
+        class="btn"
+        href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=under21"
+        target="_top"
+      >
         Under 21 years old
       </a>
 
-      <a class="btn"
-         href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=adult_21_63"
-         target="_top"
-         onclick="go(this.href); return false;">
+      <a
+        class="btn"
+        href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=adult_21_63"
+        target="_top"
+      >
         21–63 years old
       </a>
 
-      <a class="btn"
-         href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=senior_64_plus"
-         target="_top"
-         onclick="go(this.href); return false;">
+      <a
+        class="btn"
+        href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=senior_64_plus"
+        target="_top"
+      >
         64+ years old
       </a>
     </div>
