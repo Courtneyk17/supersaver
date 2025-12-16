@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaverPath</title>
 
-  <!-- RedTrack Universal Script -->
-  <script src="https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org" defer></script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,26 +17,34 @@
       height: 100vh;
       text-align: center;
     }
+
     .container {
       width: 700px;
       padding: 40px 20px;
     }
+
     .logo {
       width: 100%;
       max-width: 600px;
+      height: auto;
       margin: 0 auto 30px;
       display: block;
     }
+
     .button-group {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      width: 100%;
       max-width: 450px;
       margin: 0 auto;
       position: relative;
       z-index: 10;
     }
-    button {
+
+    /* Button-as-link styling */
+    .btn {
+      display: block;
       padding: 18px;
       font-size: 20px;
       border-radius: 12px;
@@ -48,19 +53,29 @@
       background-color: #0f4c81;
       color: white;
       transition: 0.2s ease;
+      text-decoration: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
-    button:hover {
+
+    .btn:hover {
       background-color: #09375c;
     }
+
     footer {
       margin-top: 40px;
       font-size: 14px;
       color: #666;
     }
+
     footer a {
       color: #0f4c81;
       text-decoration: none;
       margin: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -70,30 +85,55 @@
     <img src="saverpath-logo.png" class="logo" alt="SaverPath Logo" />
     <h1>Select Your Age Group</h1>
 
+    <!-- HARD LINK ROUTING (works even if JS is blocked) -->
     <div class="button-group">
-      <button data-age="under21">Under 21 years old</button>
-      <button data-age="adult_21_63">21–63 years old</button>
-      <button data-age="senior_64_plus">64+ years old</button>
+      <a class="btn" href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=under21">Under 21 years old</a>
+      <a class="btn" href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=adult_21_63">21–63 years old</a>
+      <a class="btn" href="https://track.saverpath.org/6939c5f0b0e10db0791cdcf3?sub15=senior_64_plus">64+ years old</a>
     </div>
 
     <footer>
       © <script>document.write(new Date().getFullYear());</script> SaverPath •
       <a href="contact.html">Contact</a> •
-      <a href="terms.html">Terms & Conditions</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
     </footer>
   </div>
 
-  <!-- ROUTING SCRIPT (BOTTOM — CRITICAL) -->
+  <!-- OPTIONAL: Preserve incoming query params (fbclid/utm/rtkcid/etc.) if JS runs.
+       If JS is blocked, links still work (just without pass-through). -->
   <script>
-    const REDTRACK_URL = "https://track.saverpath.org/6939c5f0b0e10db0791cdcf3";
+    (function () {
+      try {
+        const incoming = new URLSearchParams(window.location.search);
+        if (!incoming || [...incoming.keys()].length === 0) return;
 
-    document.querySelectorAll("button[data-age]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const params = new URLSearchParams(window.location.search);
-        params.set("sub15", btn.dataset.age);
-        window.location.href = `${REDTRACK_URL}?${params.toString()}`;
+        document.querySelectorAll('a.btn[href*="track.saverpath.org/6939c5f0b0e10db0791cdcf3"]').forEach(a => {
+          const url = new URL(a.href);
+          // Merge incoming params WITHOUT overwriting sub15
+          incoming.forEach((v, k) => {
+            if (k.toLowerCase() === "sub15") return;
+            if (!url.searchParams.has(k)) url.searchParams.set(k, v);
+          });
+          a.href = url.toString();
+        });
+      } catch (e) {
+        // no-op: links still work
+      }
+    })();
+  </script>
+
+  <!-- RedTrack universal script (delayed to avoid breaking click behavior) -->
+  <script>
+    (function () {
+      const s = document.createElement("script");
+      s.src = "https://track.saverpath.org/uniclick.js?attribution=lastpaid&cookiedomain=saverpath.org";
+      s.async = true;
+      s.defer = true;
+      // Load after page is interactive
+      window.addEventListener("load", function () {
+        document.head.appendChild(s);
       });
-    });
+    })();
   </script>
 </body>
 </html>
